@@ -1,7 +1,6 @@
 ---
 title: "CSC 665 Sec 3 Assignment 4"
 author: "Zoe Elias, Emily Chou"
-date: "April 23, 2026"
 geometry: margin=1in
 fontsize: 11pt
 ---
