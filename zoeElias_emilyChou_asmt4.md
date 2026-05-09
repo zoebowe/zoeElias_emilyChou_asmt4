@@ -95,20 +95,184 @@ $$
 
 ### 1. Gradients of the Sum-of-Squared-Errors Cost
 
-Write answer here.
+The cost function is:
+
+$$
+C(w) = (y_1 - (w_0 + w_1 x_1))^2 + (y_2 - (w_0 + w_1 x_2))^2
+$$
+
+Define error terms:
+
+$$
+e_1 = y_1 - (w_0 + w_1 x_1)
+$$
+
+$$
+e_2 = y_2 - (w_0 + w_1 x_2)
+$$
+
+So:
+
+$$
+C(w) = e_1^2 + e_2^2
+$$
+
+Derivative with respect to $w_0$
+
+$$
+\frac{\partial C}{\partial w_0}
+= \frac{\partial}{\partial w_0}(e_1^2 + e_2^2)
+$$
+
+Apply chain rule:
+
+$$
+= 2e_1 \frac{\partial e_1}{\partial w_0} + 2e_2 \frac{\partial e_2}{\partial w_0}
+$$
+
+$$
+\frac{\partial e_1}{\partial w_0} = -1, \quad
+\frac{\partial e_2}{\partial w_0} = -1
+$$
+
+$$
+\frac{\partial C}{\partial w_0}
+= 2e_1(-1) + 2e_2(-1)
+= -2e_1 - 2e_2
+$$
+
+Final:
+
+$$
+\frac{\partial C}{\partial w_0}
+= -2(y_1 - (w_0 + w_1 x_1)) - 2(y_2 - (w_0 + w_1 x_2))
+$$
+
+Equivalent:
+
+$$
+\frac{\partial C}{\partial w_0}
+= 2(w_0 + w_1 x_1 - y_1) + 2(w_0 + w_1 x_2 - y_2)
+$$
+
+Derivative with respect to $w_1$
+
+$$
+\frac{\partial C}{\partial w_1}
+= \frac{\partial}{\partial w_1}(e_1^2 + e_2^2)
+$$
+
+$$
+= 2e_1 \frac{\partial e_1}{\partial w_1} + 2e_2 \frac{\partial e_2}{\partial w_1}
+$$
+
+$$
+\frac{\partial e_1}{\partial w_1} = -x_1, \quad
+\frac{\partial e_2}{\partial w_1} = -x_2
+$$
+
+$$
+\frac{\partial C}{\partial w_1}
+= 2e_1(-x_1) + 2e_2(-x_2)
+= -2x_1 e_1 - 2x_2 e_2
+$$
+
+Final:
+
+$$
+\frac{\partial C}{\partial w_1}
+= -2x_1(y_1 - (w_0 + w_1 x_1)) - 2x_2(y_2 - (w_0 + w_1 x_2))
+$$
+
+Equivalent:
+
+$$
+\frac{\partial C}{\partial w_1}
+= 2x_1(w_0 + w_1 x_1 - y_1) + 2x_2(w_0 + w_1 x_2 - y_2)
+$$
+
 
 ### 2. Gradients with $\ell_2$ Regularization
 
-Write answer here.
+The regularized cost function is:
+
+$$
+\tilde{C}(w)
+= (y_1 - (w_0 + w_1 x_1))^2
++ (y_2 - (w_0 + w_1 x_2))^2
++ \lambda (w_0^2 + w_1^2)
+$$
+
+Derivative with respect to $w_0$
+
+$$
+\frac{\partial \tilde{C}}{\partial w_0}
+= \frac{\partial C}{\partial w_0} + \frac{\partial}{\partial w_0} \lambda (w_0^2 + w_1^2)
+$$
+
+$$
+= -2(y_1 - (w_0 + w_1 x_1)) - 2(y_2 - (w_0 + w_1 x_2)) + 2\lambda w_0
+$$
+
+Equivalent:
+
+$$
+\frac{\partial \tilde{C}}{\partial w_0}
+= 2(w_0 + w_1 x_1 - y_1) + 2(w_0 + w_1 x_2 - y_2) + 2\lambda w_0
+$$
+
+Derivative with respect to $w_1$
+
+$$
+\frac{\partial \tilde{C}}{\partial w_1}
+= \frac{\partial C}{\partial w_1} + \frac{\partial}{\partial w_1} \lambda (w_0^2 + w_1^2)
+$$
+
+$$
+= -2x_1(y_1 - (w_0 + w_1 x_1)) - 2x_2(y_2 - (w_0 + w_1 x_2)) + 2\lambda w_1
+$$
+
+Equivalent:
+
+$$
+\frac{\partial \tilde{C}}{\partial w_1}
+= 2x_1(w_0 + w_1 x_1 - y_1) + 2x_2(w_0 + w_1 x_2 - y_2) + 2\lambda w_1
+$$
 
 ### 5. Experiment Results
 
-Write answer here.
+We conducted an experiment over 1000 trials. In each trial, two training examples were sampled uniformly at random from the interval [-1, 1] using the target function $f(x) = \sin(\pi x)$. For each sample, we computed a linear model both without regularization and with regularization ($\lambda = 1$), and evaluated their out-of-sample performance using the provided test set.
+
+The average test error without regularization was:
+
+**1.80348**
+
+The average test error with regularization was:
+
+**0.44387**
+
+These results show that the model with regularization achieves significantly lower test error. Without regularization, the model fits the two training points exactly, which leads to large variability in the learned parameters and poor generalization. In contrast, regularization penalizes large parameter values, producing more stable models that generalize better to unseen data.
 
 ### 6. Extra Credit: Visualization
 
-Write answer here.
+Without Regularization
+
+![Without Regularization](without_regularization.png)
+
+With Regularization
+
+![With Regularization](with_regularization.png)
+
+The plots illustrate the effect of regularization on model variability by showing the fitted lines from 1000 trials.
+
+In the **unregularized case**, the fitted lines vary widely and often exhibit very steep slopes. This occurs because each model is trained on only two data points, causing the learned hypothesis to depend heavily on the specific sample. As a result, the models have high variance and fluctuate significantly across trials.
+
+In the **regularized case**, the fitted lines are much more tightly clustered and have less extreme slopes. Regularization discourages large parameter values, which reduces the variability of the learned models. Although the hypotheses are still linear and cannot perfectly match the nonlinear sine function, they are more stable and better aligned with the overall trend of the target function.
+
+Overall, the plots demonstrate that regularization reduces overfitting by limiting model complexity, resulting in improved generalization and lower test error.
 
 # GenAI Usage
 
 GenAI was used to help check derivations, verify calculations, and format the final solution. The output was reviewed and edited before submission.
+
+Emily: ChatGPT was used to help check formulasand format the final solution. I also used ChatGPT to help with the code for the graphs. The output was reviewed and edited before submission.
