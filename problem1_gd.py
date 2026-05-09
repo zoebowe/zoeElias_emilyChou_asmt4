@@ -66,18 +66,18 @@ def main():
     print("Gradient Descent Results")
     print("------------------------")
     print("Iterations:", iteration + 1)
-    print("Final weights:", weights)
+    print("Final weights:", [round(w, 4) for w in weights])
     print(
-        f"Learned h(x1, x2) = {weights[0]} + {weights[1]}x1 + {weights[2]}x2"
+        f"Learned h(x1, x2) = {round(weights[0],4)} + {round(weights[1],4)}x1 + {round(weights[2],4)}x2"
     )
-    print("Training error:", training_error(weights, data))
+    print("Training error:", round(training_error(weights, data), 4))
 
     print()
     print("SGD Comparison")
     print("--------------")
     print("SGD final weights: [-0.1, -0.1, 0.4]")
-    print("SGD learned h(x1, x2) = -0.1 + -0.1x1 + 0.4x2")
-    print("SGD training error:", 2 / 6)
+    print("SGD learned h(x1, x2) = -0.1 - 0.1x1 + 0.4x2")
+    print("SGD training error:", round(2 / 6, 4))
 
 
 if __name__ == "__main__":

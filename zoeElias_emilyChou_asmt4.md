@@ -535,6 +535,76 @@ $$
 
 \newpage
 
+### 5. Extra Credit: Gradient Descent (Full-Batch)
+
+We implement non-stochastic (full-batch) gradient descent, where each update uses the entire dataset rather than a single example.
+
+The update rule is:
+
+$$
+w \leftarrow w - \eta \nabla C(w)
+$$
+
+where the gradient is computed by summing the hinge loss subgradients over all training examples.
+
+Using a learning rate of:
+
+$$
+\eta = 0.1
+$$
+
+and stopping when the maximum change in weights is less than:
+
+$$
+10^{-5}
+$$
+
+the algorithm converges after 59 iterations.
+
+**Final Weights**
+
+$$
+(w_0, w_1, w_2) \approx (-0.4, 0.5, 4.0)
+$$
+
+Thus, the learned hypothesis is:
+
+$$
+h(x_1, x_2) = -0.4 + 0.5x_1 + 4.0x_2
+$$
+
+**Training Error**
+
+All points are classified correctly, so:
+
+$$
+\text{Training Error} = 0.0
+$$
+
+**Comparison with SGD**
+
+From Problem 3, stochastic gradient descent (SGD) produced:
+
+$$
+(w_0, w_1, w_2) = (-0.1, -0.1, 0.4)
+$$
+
+with training error:
+
+$$
+\frac{2}{6} = \frac{1}{3} \approx 0.3333
+$$
+
+**Discussion**
+
+Full-batch gradient descent achieves zero training error and finds a decision boundary that perfectly separates the data. In contrast, SGD produces a solution with non-zero training error.
+
+This difference occurs because full-batch gradient descent uses the entire dataset at each update, while the SGD calculation in Problem 3 used only one pass through the data. SGD, on the other hand, updates parameters using only one example at a time, which introduces noise into the optimization process and may prevent convergence to the optimal solution within a single pass through the data.
+
+Additionally, the final weights from gradient descent are significantly larger in magnitude, reflecting a stronger separation between classes. This demonstrates how full-batch optimization can lead to a more accurate and stable model for this dataset.
+
+\newpage
+
 # Problem II
 
 ## Regularization
